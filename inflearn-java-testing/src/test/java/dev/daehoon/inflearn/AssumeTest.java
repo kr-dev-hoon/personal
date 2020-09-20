@@ -5,11 +5,15 @@ import org.junit.jupiter.api.condition.EnabledOnJre;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+@ExtendWith(EnvironmentExtension.class)
+@TestPropertySource(locations = "classpath:/dev/daehoon/inflearn/application-test.properties")
 public class AssumeTest {
 
     @Test

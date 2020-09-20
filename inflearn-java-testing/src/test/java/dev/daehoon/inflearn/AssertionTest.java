@@ -2,6 +2,8 @@ package dev.daehoon.inflearn;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.time.Duration;
 
@@ -14,10 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// 선언
+@ExtendWith(ExtendTest.class)
 public class AssertionTest {
+
+//    @RegisterExtension
+//    static ExtendTest extendTest = new ExtendTest(2000L);
 
     @Test
     @Tag("fast")
+    @SlowAnnotation
     public void assertTest() {
 
         Basic basic = new Basic();
