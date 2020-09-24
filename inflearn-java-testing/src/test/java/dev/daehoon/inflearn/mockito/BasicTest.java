@@ -62,8 +62,8 @@ public class BasicTest {
         //when
         Study actual = studyRepository.findAllById(Arrays.asList(1L)).get(0);
         //then
-        Assert.assertEquals(actual.getId(), 10);
-        Assert.assertEquals(actual.getTitle(), "TITLE");
+        Assert.assertEquals(actual.getId(), Long.valueOf(10L));
+        Assert.assertEquals(actual.getName(), "TITLE");
 
         studyService.findById(1);
 

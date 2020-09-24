@@ -1,34 +1,48 @@
 package dev.daehoon.inflearn.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Study {
 
-    long id;
+    @Id
+    @GeneratedValue
+    private Long          id;
+    private StudyStatus   status = StudyStatus.DRAFT;
+    private int           limitCount;
+    private String        name;
+    private LocalDateTime openedDateTime;
+    private Long          ownerId;
 
-    String title;
+    public Study(int limit, String name) {
 
-    public Study(long id, String title) {
-
-        this.id = id;
-        this.title = title;
+        this.limitCount = limit;
+        this.name = name;
     }
 
-    public long getId() {
+    public Study(int limit) {
 
-        return id;
+        if (limit < 0) {
+            throw new IllegalArgumentException("limit은 0보다 커야 한다.");
+        }
+        this.limitCount = limit;
     }
 
-    public void setId(long id) {
+    public void open() {
 
-        this.id = id;
+        this.openedDateTime = LocalDateTime.now();
+        this.status = StudyStatus.OPENED;
+
     }
 
-    public String getTitle() {
-
-        return title;
-    }
-
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
 }

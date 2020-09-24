@@ -50,8 +50,8 @@ public class BddTest {
         Study actual = studyRepository.findAllById(Arrays.asList(1L)).get(0);
         studyService.findById(1);
         //then
-        Assert.assertEquals(actual.getId(), 10);
-        Assert.assertEquals(actual.getTitle(), "TITLE");
+        Assert.assertEquals(actual.getId(), Long.valueOf(10));
+        Assert.assertEquals(actual.getName(), "TITLE");
 
         then(studyRepository).should(times(1)).notify(1);
 
