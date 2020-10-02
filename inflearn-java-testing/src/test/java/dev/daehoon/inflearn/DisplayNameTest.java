@@ -1,5 +1,6 @@
 package dev.daehoon.inflearn;
 
+import dev.daehoon.inflearn.study.Basic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

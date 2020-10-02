@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT) // MOCKING이 필요없는 코드에서 Mocking시도시 추가하고 테스트 진행해야함.
 // 공부를 위해 해당 settings를 추가하고 진행.
-public class BasicTest {
+public class StudyRepositoryTest {
 
     @Mock
     private StudyRepository studyRepository;

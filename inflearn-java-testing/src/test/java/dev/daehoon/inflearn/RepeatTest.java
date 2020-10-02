@@ -1,5 +1,6 @@
 package dev.daehoon.inflearn;
 
+import dev.daehoon.inflearn.study.Base;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;

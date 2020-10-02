@@ -1,4 +1,4 @@
-package dev.daehoon.inflearn;
+package dev.daehoon.inflearn.study;
 
 public class Basic {
 
