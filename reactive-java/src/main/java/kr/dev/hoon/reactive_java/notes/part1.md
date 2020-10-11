@@ -31,3 +31,94 @@
     - 요청을 받자마자 우선 응답을 보내고, 비동기적 처리
     - 실제 외부/다른 서비스 요청은 Message Broker를 통해 진행되며, Message Broker를 통해 해당 메시지를 유실하지 않고 재시도, 모니터링.
     - 성공/실패에 대한 처리는 비동기 비즈니스 로직에서 처리, 알림(push) 형태로 제공하는 기능이 필요하다.
+    
+### Service Level
+- 큰 아키텍쳐 뿐만이 아니라 작은 규모의 서비스의 각 구성 요소도 리액티브하게 구성한다.
+
+```java 
+// 기존의 명령형 프로그래밍
+interface Service {
+    OutPut process(Input value);
+}
+
+class OrdersService {
+    private final Service service;
+
+    void process() {
+        Input input = ...;
+        Output output - service.process(input);
+    }
+}
+```
+해당 로직은 동기적으로 호출되어 Service가 요청을 처리하는 동안 다른 작업을 실행할수 없게 된다.
+
+```java 
+// 기존의 명령형 프로그래밍
+interface ShoppingCardService {
+    OutPut process(Input value, Consumer<OutPut> c);
+}
+
+class OrdersService {
+    private final ShoppingCardService scService;
+
+    void process() {
+        Input input = ...;
+        Output output - service.process(input, output -> {
+...
+        });
+    }
+}
+```
+
+해당 로직은 Callback 형태로 파라미터를 전달하여 동기/비동기 방식의 구현이 가능해진다.
+
+```java
+class SyncService implements Service {
+
+    public void process(Input value, Consumer<Output> c) {
+    
+        Output result = template.getForOjbect(...);   // I/O Block
+        ...
+        c.accept(result);
+    }
+}
+
+class AsyncService implements Service {
+
+    public void process(Input value, Consumer<Output> c) {
+    
+    new Thread(() -> {
+        Output result = template.getForOjbect(...);   // 별도의 thread에서 blocking되어 요청한 thread는 다른 작업을 수행할수 있다.
+        ...
+        c.accept(result);
+    }).start();
+    }
+}
+```
+
+Java Future
+```java
+interface FutureService {
+    Future<Output> process(Input value);
+}
+
+class OrdersService {
+    private final FutureService futureService;
+
+    void process() {
+        Input input = ...;
+        Future<Output> output = futureService.process(input); // 비동기적 처리 수행.
+        Output output = output.get();
+
+    }
+}
+```
+
+### Spring Framework
+
+- spring mvc는 서블릿(Servlet)을 사용ㅎ며 서블릿은 각각의 요청에 별도의 스데르를 할당해서 사용하고 있다.
+- 멀티 스레딩 영역에서 컨텍스트 스위치로 인한 성능 저하
+- 일반적인 Java Thread는 개당 1,024KB의 오버헤드를 가지며, 이는 많은 양의 요청이 들어올 경우 메모리에 부하 가능.
+
+#### Reactive Framework
+Akka / Vert.x
