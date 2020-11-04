@@ -53,7 +53,6 @@ class OrdersService {
 해당 로직은 동기적으로 호출되어 Service가 요청을 처리하는 동안 다른 작업을 실행할수 없게 된다.
 
 ```java 
-// 기존의 명령형 프로그래밍
 interface ShoppingCardService {
     OutPut process(Input value, Consumer<OutPut> c);
 }

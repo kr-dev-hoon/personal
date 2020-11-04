@@ -14,12 +14,79 @@
 
 https://ko.wikipedia.org/wiki/%EC%98%B5%EC%84%9C%EB%B2%84_%ED%8C%A8%ED%84%B4
 
-### Pub-Sub 구현
-
 ### RxJava
 
+- Java 플랫폼에서 리액티브 프로그래밍을 위한 라이브러리.
+https://github.com/ReactiveX/RxJava
+
+```java
+public interface RxObserver<T> {
+
+    void onNext(T next);
+    void onCompleted();
+    void onError(Throwable t);
+}
+```
+
+Event Generator
+```java 
+Observable<String> observable = Observable.create(
+    sub -> {
+        sub.onNext("Hello World");
+        sub.onCompleted();
+    }
+);
+```
+
+```java
+Subscriber<String> subscriber = new Subscriber<String>() {
+    
+    public void onNext(String s) {
+        System.out.println(s);
+    }
+
+    public void onCompleted() {
+        System.out.println("done!");
+    }
+
+    public void onError(Throwable t) {
+        System.err.println(t);
+    }
+}
+```
+
+```java
+Subscriber<String> subscriber = new Subscriber<String>() {
+    
+    public void onNext(String s) {
+        System.out.println(s);
+    }
+
+    public void onCompleted() {
+        System.out.println("done!");
+    }
+
+    public void onError(Throwable t) {
+        System.err.println(t);
+    }
+}
+```
+
+With Lambda Expression
+```java
+Observable<String> observable = Observable.create(
+    sub -> {
+        sub.onNext("Hello World");
+        sub.onCompleted();
+    }
+).subscribe(
+    System.out::println,
+    System.err::println,
+    () -> System.out.println("Done!")
+);
+```
+
 ### Marble Diagram
-
-### Use Case
-
-### Cureent
+- 스트림의 흐름을 시각적으로 표현하기 위한 다이어 그램
+- 비동기 데이터에 대한 흐름을 시각화
+- https://rxmarbles.com/
